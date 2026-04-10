@@ -203,6 +203,7 @@
 </head>
 <body>
 
+
 <!-- NAV -->
 <nav>
   <div class="nav-left">
@@ -280,9 +281,7 @@
     </div>
 
     <div>
-      <form name="andelsbrev" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="theForm" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="form-name" value="andelsbrev">
-        <p style="display:none"><input name="bot-field"></p>
+      <form action="https://formspree.io/f/mqegvlwl" method="POST" id="theForm" onsubmit="handleSubmit(event)">
         <div class="f-row">
           <div><label class="f-label">Namn *</label><input name="namn" class="f-input" type="text" placeholder="Ditt namn"></div>
           <div><label class="f-label">E-post *</label><input name="epost" class="f-input" type="email" placeholder="din@epost.no"></div>
@@ -407,7 +406,7 @@
     document.getElementById('bedriftRow').style.display = val === 'Bedrift' ? 'block' : 'none';
   }
 
-  // ── NETLIFY FORM SUBMIT ─────────────────────────────────
+  // ── FORMSPREE SUBMIT ────────────────────────────────────
   async function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
@@ -418,14 +417,13 @@
     const formData = new FormData(form);
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch(form.action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
+        body: formData,
+        headers: { 'Accept': 'application/json' }
       });
 
-      if (response.ok || response.status === 200) {
-        // Update counter in localStorage
+      if (response.ok) {
         const type = formData.get('type') || 'Privat';
         let counts = getLocalCounts();
         counts.total += 1;
@@ -494,14 +492,4 @@
       '<tr><td colspan="8"><div class="empty">' +
       '<div class="ico">📋</div>' +
       '<strong>Sjå alle registreringar i Netlify:</strong><br><br>' +
-      'Logg inn på <strong>app.netlify.com</strong><br>' +
-      'Gå til di side → <strong>Forms → andelsbrev</strong><br><br>' +
-      '<span style="font-size:13px;color:var(--text-muted)">Der finn du namn, e-post, telefon og alle detaljar.</span>' +
-      '</div></td></tr>';
-  }
-
-  // ── INIT ────────────────────────────────────────────────
-  updateUI(getLocalCounts());
-</script>
-</body>
-</html>
+      'Logg inn på <str
