@@ -31,8 +31,8 @@
   .nav-btn:hover { background: #111518; }
 
   /* HERO */
-  .hero { min-height: 100vh; padding-top: 64px; background: var(--navy); display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
-  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px; position: relative; z-index: 2; }
+  .hero { min-height: 100vh; padding-top: 64px; background: var(--navy); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 80px 120px; position: relative; z-index: 2; max-width: 800px; }
   .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; padding: 7px 18px; border-radius: 3px; margin-bottom: 28px; width: fit-content; animation: up 0.6s ease both; }
   .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(44px,6vw,76px); line-height: 0.95; text-transform: uppercase; color: var(--white); margin-bottom: 24px; animation: up 0.6s 0.08s ease both; }
   .hero h1 .hl { color: var(--yellow); }
@@ -125,13 +125,13 @@
   #successBox h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 28px; text-transform: uppercase; color: var(--yellow); margin-bottom: 8px; }
   #successBox p { font-size: 14px; color: var(--text-muted); font-weight: 300; }
 
-  /* PUBLIC COUNTER (visible to all) */
-  .counter-section { padding: 80px 64px; max-width: 1200px; margin: 0 auto; }
-  .public-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; }
-  .ps { background: var(--navy-card); padding: 40px 20px; text-align: center; border-top: 3px solid var(--yellow); }
+
+
+
+
   .ps .pnum { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 52px; color: var(--yellow); line-height: 1; }
   .ps .plbl { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
-  .privacy-note { display: flex; align-items: center; gap: 10px; margin-top: 24px; padding: 14px 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; font-size: 13px; color: var(--text-muted); font-weight: 300; }
+
   .privacy-note span { font-size: 18px; }
 
   /* ADMIN SECTION */
@@ -189,7 +189,7 @@
     .hero-right { display: none; }
     .hero-left, .form-layout, .section, .counter-section, .admin-section { padding-left: 28px; padding-right: 28px; }
     .form-layout { grid-template-columns: 1fr; gap: 48px; }
-    .public-stats { grid-template-columns: 1fr; }
+  
     .admin-stats { grid-template-columns: 1fr 1fr; }
     nav { padding: 0 20px; }
   }
@@ -202,7 +202,6 @@
 </style>
 </head>
 <body>
-
 
 <!-- NAV -->
 <nav>
@@ -228,16 +227,6 @@
     <div class="hero-cta">
       <a href="#registrer" class="btn-yellow">Registrer interesse</a>
       <a href="#info" class="btn-ghost">Les meir</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="stat-panel">
-      <div class="big-num" id="hTotal">–</div>
-      <div class="big-lbl">Registrerte interessentar</div>
-    </div>
-    <div class="stat-sub">
-      <div class="stat-sub-item"><div class="num" id="hPrivat">–</div><div class="lbl">Privatpersonar</div></div>
-      <div class="stat-sub-item"><div class="num" id="hBedrift">–</div><div class="lbl">Bedrifter</div></div>
     </div>
   </div>
 </section>
@@ -281,7 +270,8 @@
     </div>
 
     <div>
-      <form action="https://formspree.io/f/mqegvlwl" method="POST" id="theForm" onsubmit="handleSubmit(event)">
+      <form action="https://formspree.io/f/mqegvlwl" method="POST" id="theForm" onsubmit="handleSubmit(event); return false;">
+        <input type="hidden" name="_subject" value="Ny interessent - Fotballhall LIL">
         <div class="f-row">
           <div><label class="f-label">Namn *</label><input name="namn" class="f-input" type="text" placeholder="Ditt namn"></div>
           <div><label class="f-label">E-post *</label><input name="epost" class="f-input" type="email" placeholder="din@epost.no"></div>
@@ -322,21 +312,7 @@
   </div>
 </div>
 
-<!-- PUBLIC COUNTER -->
-<section class="counter-section">
-  <div class="sec-eyebrow">Status</div>
-  <h2 class="sec-title">Engasjementet veks!</h2>
-  <p class="sec-body">Sjå kor mange som allereie har meldt interesse. Personopplysningar er konfidensielle.</p>
-  <div class="public-stats">
-    <div class="ps"><div class="pnum" id="pTotal">–</div><div class="plbl">Totalt registrerte</div></div>
-    <div class="ps"><div class="pnum" id="pPrivat">–</div><div class="plbl">Privatpersonar</div></div>
-    <div class="ps"><div class="pnum" id="pBedrift">–</div><div class="plbl">Bedrifter</div></div>
-  </div>
-  <div class="privacy-note">
-    <span>🔒</span>
-    Personopplysningar som namn, e-post og telefon er konfidensielle og berre tilgjengelege for styret i Larsnes Idrottslag.
-  </div>
-</section>
+
 
 <hr class="divider">
 
@@ -398,108 +374,56 @@
   <div class="footer-right">Vardane, 6084 Larsnes<br>Sande kommune, Møre og Romsdal<br>Skipa 1938</div>
 </footer>
 
+
 <script>
-  const ADMIN_PASSWORD = 'LIL2025';
-  const SUPABASE_URL = 'https://vdkuymoanwybzyuyojvt.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZka3V5bW9hbnd5Ynp5dXlvanZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MDM5ODYsImV4cCI6MjA5MTM3OTk4Nn0.4unAJ_eBZU_9MZJLjXhw1aOLpZ4OypJEj3P8PdEKsVE';
+  var ADMIN_PASSWORD = 'LIL2025';
 
   function toggleBedrift() {
-    const val = document.querySelector('input[name="type"]:checked').value;
+    var val = document.querySelector('input[name="type"]:checked').value;
     document.getElementById('bedriftRow').style.display = val === 'Bedrift' ? 'block' : 'none';
   }
 
-  // ── SUPABASE HELPERS ────────────────────────────────────
-  async function getCounts() {
-    try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/teller?id=eq.1', {
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_KEY
-        }
-      });
-      const data = await res.json();
-      if (data && data.length > 0) return data[0];
-      return { total: 0, privat: 0, bedrift: 0 };
-    } catch { return { total: 0, privat: 0, bedrift: 0 }; }
-  }
-
-  async function updateCounts(type) {
-    try {
-      const current = await getCounts();
-      const newTotal   = (current.total   || 0) + 1;
-      const newPrivat  = (current.privat  || 0) + (type === 'Privat'  ? 1 : 0);
-      const newBedrift = (current.bedrift || 0) + (type === 'Bedrift' ? 1 : 0);
-
-      const patchRes = await fetch(SUPABASE_URL + '/rest/v1/teller?id=eq.1', {
-        method: 'PATCH',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_KEY,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ total: newTotal, privat: newPrivat, bedrift: newBedrift })
-      });
-      if (!patchRes.ok) {
-        const errText = await patchRes.text();
-        console.error('Supabase PATCH feil:', patchRes.status, errText);
-      } else {
-        console.log('Supabase oppdatert:', newTotal, newPrivat, newBedrift);
-      }
-      return { total: newTotal, privat: newPrivat, bedrift: newBedrift };
-    } catch(e) { console.error('updateCounts feil:', e); return null; }
-  }
-
-  function updateUI(c) {
-    if (!c) return;
-    ['hTotal','pTotal'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = c.total || 0; });
-    ['hPrivat','pPrivat'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = c.privat || 0; });
-    ['hBedrift','pBedrift'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = c.bedrift || 0; });
-  }
-
-  async function loadPublicCounts() {
-    updateUI(await getCounts());
-  }
-
-  // ── FORMSPREE SUBMIT ─────────────────────────────────────
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    const btn = document.getElementById('submitBtn');
+    var btn = document.getElementById('submitBtn');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Sender…';
-
-    const form = e.target;
-    const formData = new FormData(form);
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        const type = formData.get('type') || 'Privat';
-        const counts = await updateCounts(type);
-        updateUI(counts);
+    btn.textContent = 'Sender…';
+    var form = document.getElementById('theForm');
+    var formData = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      if (r.ok) {
         form.style.display = 'none';
         document.getElementById('successBox').style.display = 'block';
       } else {
-        throw new Error('Feil');
+        throw new Error('Feil ' + r.status);
       }
-    } catch(err) {
+    }).catch(function(e) {
+      console.error(e);
       btn.disabled = false;
       btn.textContent = 'Send registrering ⚽';
       alert('Noko gjekk gale. Prøv igjen.');
-    }
+    });
+    return false;
   }
 
-  // ── ADMIN ────────────────────────────────────────────────
   function doLogin() {
     if (document.getElementById('adminPw').value === ADMIN_PASSWORD) {
       document.getElementById('loginBox').style.display = 'none';
       document.getElementById('adminPanel').style.display = 'block';
-      loadAdminData();
+      document.getElementById('aTotal').textContent   = '–';
+      document.getElementById('aPrivat').textContent  = '–';
+      document.getElementById('aBedrift').textContent = '–';
+      document.getElementById('aAmount').textContent  = '–';
+      document.getElementById('adminTableBody').innerHTML =
+        '<tr><td colspan="8"><div class="empty"><div class="ico">📋</div>' +
+        '<strong>Sjå alle registreringar i Formspree:</strong><br><br>' +
+        '<a href="https://formspree.io/forms/mqegvlwl/submissions" target="_blank" style="color:var(--yellow);font-weight:700;font-size:18px;">Opne Formspree svarskjema →</a><br><br>' +
+        '<span style="font-size:13px;color:var(--text-muted)">Der finn du namn, e-post, telefon og alle detaljar.</span>' +
+        '</div></td></tr>';
     } else {
       document.getElementById('loginError').textContent = '❌ Feil passord. Prøv igjen.';
       document.getElementById('adminPw').value = '';
@@ -512,18 +436,6 @@
     document.getElementById('adminPw').value = '';
     document.getElementById('loginError').textContent = '';
   }
-
-  async function loadAdminData() {
-    const c = await getCounts();
-    document.getElementById('aTotal').textContent = c.total || 0;
-    document.getElementById('aPrivat').textContent = c.privat || 0;
-    document.getElementById('aBedrift').textContent = c.bedrift || 0;
-    document.getElementById('aAmount').textContent = '–';
-    document.getElementById('adminTableBody').innerHTML =
-      '<tr><td colspan="8"><div class="empty">' +
-      '<div class="ico">📋</div>' +
-      '<strong>Sjå alle registreringar i Formspree:</strong><br><br>' +
-      '<a href="https://formspree.io/forms/mqegvlwl/submissions" target="_blank" ' +
-      'style="color:var(--yellow);font-weight:700;font-size:16px;">Opne Formspree svarskjema →</a><br><br>' +
-      '<span style="font-size:13px;color:var(--text-muted)">Der finn du namn, e-post, telefon og alle detaljar.</span>' +
-  
+</script>
+</body>
+</html>
